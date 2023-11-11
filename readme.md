@@ -68,3 +68,25 @@ The application will start at `localhost:8080/api/products`.
 - `POST /api/products/{id}`: Delete a product.
 
 The project was created with the assistance of ChatGPT.
+
+## Feedback
+
+1. Was it easy to complete the task using AI? 
+
+While working with AI, generating the skeleton of the controller, services, views, and model, along with unit tests, was relatively easy. However, I encountered difficulties during the integration testing and debugging process, particularly when working with Hibernate.
+
+2. How long did the task take you to complete?
+
+The task took me a total of 6 hours of consecutive work to complete. About 2 hours of that time was spent clarifying prompts and debugging various issues.
+
+3. Was the code ready to run after generation? What did you have to change to make it usable?
+
+In 60% of the cases, the generated code was ready to run without any modifications. In 20% of the cases, the code required light refactoring before it could be used effectively. The remaining 20% of the cases necessitated writing code from scratch.
+
+4. Which challenges did you face during the completion of the task?
+
+Some of the challenges I faced during the task completion included debugging stack traces, correcting invalid method suggestions, configuring and unifying the code style, as well as creating integration tests.
+
+5. Which specific prompts did you learn as good practices to complete the task?
+
+One good practice I learned during the task involves generating new methods and views based on analogous, previously generated examples. This approach enabled more efficient coding and a smoother development process overall.
