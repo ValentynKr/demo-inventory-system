@@ -6,6 +6,7 @@ import com.krylovetskyi.demoinventorysystem.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -17,8 +18,11 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public ModelAndView getAllProducts() {
+        List<Product> products = productService.getAllProducts();
+        ModelAndView modelAndView = new ModelAndView("products");
+        modelAndView.addObject("products", products);
+        return modelAndView;
     }
 
     @GetMapping("/{id}")
