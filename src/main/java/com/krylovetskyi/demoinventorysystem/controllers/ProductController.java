@@ -5,12 +5,14 @@ import com.krylovetskyi.demoinventorysystem.models.Product;
 import com.krylovetskyi.demoinventorysystem.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
 public class ProductController {
@@ -30,10 +32,16 @@ public class ProductController {
         return productService.getProductById(id).orElseThrow(() -> new ProductNotFoundException("Product not found"));
     }
 
+    @GetMapping("/getAddProductView")
+    public String getAddProductView(Model model) {
+        model.addAttribute("newProduct", new Product());
+        return "addProduct";
+    }
+
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Product addProduct(@RequestBody Product product) {
-        return productService.addProduct(product);
+    public ModelAndView addProduct(@ModelAttribute Product product) {
+        productService.addProduct(product);
+        return new ModelAndView("redirect:/api/products");
     }
 
     @PutMapping("/{id}")
@@ -43,7 +51,6 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProduct(@PathVariable("id") Integer id) {
         productService.deleteProduct(id);
     }

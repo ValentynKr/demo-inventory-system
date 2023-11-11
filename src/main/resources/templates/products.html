@@ -33,6 +33,12 @@
         </tr>
         </tbody>
     </table>
+    <!-- Add Product button -->
+    <div class="text-center">
+        <form th:action="@{/api/products/getAddProductView}" method="get">
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
 </div>
 </body>
 </html>
