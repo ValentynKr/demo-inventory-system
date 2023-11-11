@@ -1,0 +1,9 @@
+DROP ALL OBJECTS;
+
+CREATE TABLE products (
+  id IDENTITY PRIMARY KEY,
+  name VARCHAR(45) NOT NULL,
+  description TEXT,
+  price DECIMAL(10, 2) NOT NULL,
+  quantity INT NOT NULL
+);
