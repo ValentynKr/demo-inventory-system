@@ -4,6 +4,7 @@ import com.krylovetskyi.demoinventorysystem.exceptions.ProductNotFoundException;
 import com.krylovetskyi.demoinventorysystem.models.Product;
 import com.krylovetskyi.demoinventorysystem.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +12,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @Controller
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
 public class ProductController {
 
+    public static final String REDIRECT_TO_INDEX_PAGE = "redirect:/api/products";
     private final ProductService productService;
 
     @GetMapping
@@ -38,21 +42,34 @@ public class ProductController {
         return "addProduct";
     }
 
+    @GetMapping("/getEditProductView/{id}")
+    public String getEditProductView(@PathVariable("id") Integer id, Model model) {
+        Optional<Product> product = productService.getProductById(id);
+        if (product.isEmpty()) {
+            log.warn("In view was chosen product which is absent in database");
+            return REDIRECT_TO_INDEX_PAGE;
+        }
+        model.addAttribute("editProduct", product.get());
+        return "editProduct";
+    }
+
     @PostMapping
     public ModelAndView addProduct(@ModelAttribute Product product) {
         productService.addProduct(product);
-        return new ModelAndView("redirect:/api/products");
+        return new ModelAndView(REDIRECT_TO_INDEX_PAGE);
     }
 
-    @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable("id") Integer id, @RequestBody Product product) {
+    @PostMapping("/update/{id}")
+    public String updateProduct(@PathVariable("id") Integer id,
+                                @ModelAttribute("updatedProduct") Product product) {
         product.setId(id);
-        return productService.updateProduct(product);
+        productService.updateProduct(product);
+        return REDIRECT_TO_INDEX_PAGE;
     }
 
     @PostMapping("/{id}")
     public String deleteProduct(@PathVariable("id") Integer id) {
         productService.deleteProduct(id);
-        return "redirect:/api/products";
+        return REDIRECT_TO_INDEX_PAGE;
     }
 }

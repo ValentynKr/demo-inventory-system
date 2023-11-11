@@ -23,6 +23,9 @@
             <th>Name</th>
             <th>Description</th>
             <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Edit</th>
             <th>Delete</th>
         </tr>
         </thead>
@@ -32,6 +35,15 @@
             <td th:text="${product.name}"></td>
             <td th:text="${product.description}"></td>
             <td th:text="${product.quantity}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.quantity * product.price}"></td>
+            <td>
+                <form th:action="@{/api/products/getEditProductView/{id}(id=${product.id})}" method="get">
+                    <button type="submit" class="btn btn-link btn-sm text-info">
+                        <i class="fas fa-pencil-alt"></i>
+                    </button>
+                </form>
+            </td>
             <td>
                 <form th:action="@{/api/products/{id}(id=${product.id})}" method="post" th:object="${product}">
                     <input type="hidden" name="_method" value="delete" />
