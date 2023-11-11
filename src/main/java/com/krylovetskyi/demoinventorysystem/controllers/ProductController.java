@@ -50,8 +50,9 @@ public class ProductController {
         return productService.updateProduct(product);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable("id") Integer id) {
+    @PostMapping("/{id}")
+    public String deleteProduct(@PathVariable("id") Integer id) {
         productService.deleteProduct(id);
+        return "redirect:/api/products";
     }
 }

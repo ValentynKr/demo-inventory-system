@@ -6,6 +6,7 @@
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
 
     <!-- Bootstrap JavaScript CDN and its dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -22,6 +23,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>Quantity</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -30,6 +32,14 @@
             <td th:text="${product.name}"></td>
             <td th:text="${product.description}"></td>
             <td th:text="${product.quantity}"></td>
+            <td>
+                <form th:action="@{/api/products/{id}(id=${product.id})}" method="post" th:object="${product}">
+                    <input type="hidden" name="_method" value="delete" />
+                    <button type="submit" class="btn btn-link btn-sm text-danger">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
