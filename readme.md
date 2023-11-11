@@ -67,7 +67,8 @@ The application will start at `localhost:8080/api/products`.
 
 - `POST /api/products/{id}`: Delete a product.
 
-The project was created with the assistance of ChatGPT.
+The project was created with the assistance of ChatGPT. Logs of conversations
+could be found in `gpt-logs` folder of the project.
 
 ## Feedback
 
